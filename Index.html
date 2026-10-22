@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Shravya Shetty – Front-End / React Developer</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #07070d;
+            --card: #10101c;
+            --line: #23233a;
+            --tx: #ecebf5;
+            --mut: #9a9ab5;
+            --a: #8b5cf6;
+            --b: #22d3ee;
+            --c: #f472b6;
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px)
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 70px
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--tx);
+            font: 16px/1.65 Inter, system-ui, sans-serif;
+            overflow-x: hidden
+        }
+
+        h1,
+        h2,
+        h3,
+        .logo {
+            font-family: 'Space Grotesk', system-ui, sans-serif
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        #glow {
+            position: fixed;
+            width: 520px;
+            height: 520px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(139, 92, 246, .22), transparent 65%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            left: 50%;
+            top: 30%
+        }
+
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: .25;
+            z-index: 0;
+            animation: fl 16s ease-in-out infinite alternate
+        }
+
+        .b1 {
+            width: 360px;
+            height: 360px;
+            background: var(--a);
+            top: -80px;
+            right: -80px
+        }
+
+        .b2 {
+            width: 300px;
+            height: 300px;
+            background: var(--b);
+            bottom: -60px;
+            left: -60px;
+            animation-delay: -8s
+        }
+
+        @keyframes fl {
+            to {
+                transform: translate(-60px, 50px) scale(1.2)
+            }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 20;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 5vw;
+            padding-top: calc(14px + env(safe-area-inset-top, 0px));
+            background: rgba(7, 7, 13, .7);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--line)
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 20px
+        }
+
+        .logo b {
+            color: var(--a)
+        }
+
+        nav ul {
+            display: flex;
+            gap: 26px;
+            list-style: none;
+            padding: 0
+        }
+
+        nav ul a {
+            color: var(--mut);
+            font-size: 14px;
+            transition: .2s
+        }
+
+        nav ul a:hover {
+            color: var(--tx)
+        }
+
+        @media(max-width:720px) {
+            nav ul {
+                display: none
+            }
+        }
+
+        section {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            margin: auto;
+            padding: 100px 2vw 40px
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 40px;
+            align-items: center;
+            padding-top: 120px
+        }
+
+        @media(max-width:820px) {
+            .hero {
+                grid-template-columns: 1fr
+            }
+
+            .photo {
+                order: -1;
+                max-width: 260px
+            }
+        }
+
+        .tag {
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+            font-size: 13px;
+            color: var(--b);
+            border: 1px solid var(--line);
+            padding: 6px 14px;
+            border-radius: 99px;
+            background: var(--card)
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #34d399;
+            box-shadow: 0 0 0 0 #34d399;
+            animation: pulse 2s infinite
+        }
+
+        @keyframes pulse {
+            70% {
+                box-shadow: 0 0 0 10px transparent
+            }
+        }
+
+        h1 {
+            font-size: clamp(40px, 7vw, 76px);
+            line-height: 1.05;
+            margin: 20px 0 14px;
+            letter-spacing: -2px
+        }
+
+        .grad {
+            background: linear-gradient(90deg, var(--a), var(--b), var(--c), var(--a));
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gs 6s linear infinite
+        }
+
+        @keyframes gs {
+            to {
+                background-position: 300% 0
+            }
+        }
+
+        .role {
+            font-size: clamp(18px, 2.6vw, 26px);
+            color: var(--mut);
+            min-height: 1.6em
+        }
+
+        .role span {
+            color: var(--tx)
+        }
+
+        .cur {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background: var(--b);
+            margin-left: 3px;
+            vertical-align: -3px;
+            animation: bl 1s steps(1) infinite
+        }
+
+        @keyframes bl {
+            50% {
+                opacity: 0
+            }
+        }
+
+        .lead {
+            color: var(--mut);
+            max-width: 560px;
+            margin: 18px 0 28px
+        }
+
+        .btns {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 500;
+            border: 1px solid var(--line);
+            background: var(--card);
+            transition: .25s
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            border-color: var(--a)
+        }
+
+        .btn.p {
+            background: linear-gradient(120deg, var(--a), #6366f1);
+            border: 0;
+            box-shadow: 0 10px 30px -10px var(--a)
+        }
+
+        /* .photo {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 28px;
+            padding: 3px;
+            background: conic-gradient(from 0deg, var(--a), var(--b), var(--c), var(--a));
+            animation: spin 8s linear infinite
+        } */
+        .photo {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 28px;
+            padding: 3px;
+            background: conic-gradient(from 0deg,
+                    var(--a),
+                    var(--b),
+                    var(--c),
+                    var(--a));
+        }
+
+        /* @keyframes spin {
+            to {
+                filter: hue-rotate(360deg)
+            }
+        } */
+
+        .photo .in {
+            width: 100%;
+            height: 100%;
+            border-radius: 26px;
+            background: var(--card);
+            display: grid;
+            place-items: center;
+            overflow: hidden
+        }
+
+        .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .photo .mono {
+            font: 700 90px 'Space Grotesk';
+            background: linear-gradient(135deg, var(--a), var(--b));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent
+        }
+
+        .sec-t {
+            font-size: clamp(28px, 4vw, 40px);
+            margin-bottom: 8px
+        }
+
+        .sec-s {
+            color: var(--a);
+            font-size: 13px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 16px;
+            margin-top: 30px
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 24px;
+            transition: .3s
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: var(--a);
+            box-shadow: 0 20px 40px -20px var(--a)
+        }
+
+        .num {
+            font: 700 40px 'Space Grotesk';
+            background: linear-gradient(90deg, var(--a), var(--b));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent
+        }
+
+        .mut {
+            color: var(--mut);
+            font-size: 14px
+        }
+
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-top: 26px
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px
+        }
+
+        .chip {
+            font-size: 13px;
+            padding: 5px 12px;
+            border-radius: 99px;
+            border: 1px solid var(--line);
+            color: var(--mut);
+            transition: .2s
+        }
+
+        .chip:hover {
+            color: var(--tx);
+            border-color: var(--b)
+        }
+
+        .tl {
+            position: relative;
+            margin-top: 26px;
+            padding-left: 28px;
+            border-left: 2px solid var(--line)
+        }
+
+        .tl::before {
+            content: "";
+            position: absolute;
+            left: -2px;
+            top: 0;
+            width: 2px;
+            height: var(--p, 0%);
+            background: linear-gradient(var(--a), var(--b))
+        }
+
+        .tl .card {
+            position: relative
+        }
+
+        .tl .card::before {
+            content: "";
+            position: absolute;
+            left: -37px;
+            top: 30px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--a);
+            box-shadow: 0 0 14px var(--a)
+        }
+
+        ul.pts {
+            padding-left: 18px;
+            margin-top: 10px;
+            color: var(--mut);
+            font-size: 15px
+        }
+
+        ul.pts li {
+            margin: 5px 0
+        }
+
+        .pg {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+            gap: 18px;
+            margin-top: 26px
+        }
+
+        .pg h3 {
+            font-size: 21px
+        }
+
+        .kind {
+            font-size: 12px;
+            color: var(--b);
+            letter-spacing: 1px;
+            text-transform: uppercase
+        }
+
+        .flow {
+            margin-top: 12px;
+            font-size: 13px;
+            color: var(--c)
+        }
+
+        .feat {
+            border-color: #3b2f6b;
+            background: linear-gradient(160deg, #17142c, var(--card))
+        }
+
+        .ph {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            align-items: flex-start;
+            flex-wrap: wrap
+        }
+
+        .client {
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 99px;
+            background: rgba(139, 92, 246, .15);
+            color: #c4b5fd;
+            border: 1px solid #3b2f6b
+        }
+
+        .sub {
+            margin-top: 16px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--a)
+        }
+
+        .pro .chips {
+            margin-top: 16px
+        }
+
+        .contact {
+            text-align: center;
+            padding-bottom: 70px
+        }
+
+        .contact h2 {
+            font-size: clamp(30px, 5vw, 52px);
+            margin: 10px 0 24px
+        }
+
+        .links {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap
+        }
+
+        footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: var(--mut);
+            font-size: 13px;
+            padding: 24px 5vw 40px;
+            border-top: 1px solid var(--line)
+        }
+
+        .rv {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity .8s, transform .8s
+        }
+
+        .rv.on {
+            opacity: 1;
+            transform: none
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+            * {
+                animation: none !important;
+                transition: none !important
+            }
+
+            .rv {
+                opacity: 1;
+                transform: none
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="glow"></div>
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <nav><a class="logo" href="#top">shravya<b>.</b>dev</a>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#exp">Experience</a></li>
+            <li><a href="#work">Office Projects</a></li>
+            <li><a href="#personal">Personal</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="top">
+        <div>
+            <span class="tag"><i class="dot"></i> Open to Front-End / React opportunities</span>
+            <h1>Hi, I’m <span class="grad">Shravya Shetty</span></h1>
+            <div class="role">I build <span id="tw"></span><i class="cur"></i></div>
+            <p class="lead">Front-End Developer in Bengaluru, working with React, TypeScript and JavaScript to turn
+                requirements into responsive, reusable and user-friendly interfaces.</p>
+            <div class="btns">
+                <a class="btn p" href="#work">View my work</a>
+
+                <a class="btn" href="https://www.linkedin.com/in/shravyakshetty02/" target="_blank"
+                    rel="noopener noreferrer">
+                    LinkedIn ↗
+                </a>
+
+                <a class="btn" href="mailto:shravyakshetty02@gmail.com">
+                    Email me
+                </a>
+            </div>
+        </div>
+        <div class="photo">
+            <div class="in" id="ph"><span class="mono"><img src="./images/shared image.jpg"></span></div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="sec-s rv">About</div>
+        <h2 class="sec-t rv">Responsive UIs, built to be reused</h2>
+        <p class="mut rv" style="max-width:760px;font-size:16px">
+            I’m a Front-End Developer at Yucca IT Solutions with hands-on experience building responsive, user-friendly
+            web interfaces using React, TypeScript, JavaScript, HTML, CSS, Bootstrap, and Material UI. I have
+            contributed to enterprise applications, including Integra, IMT (Invoice Management Tool), LRC, and other
+            projects, developing reusable UI components, dashboards, forms,
+            data grids, filters, modals, and interactive features. My experience includes implementing client-requested
+            enhancements, resolving UI defects, improving responsive layouts, and collaborating with backend teams on
+            API integration. I’m passionate about creating clean, maintainable interfaces and continuously strengthening
+            my frontend development skills.
+        </p>
+        <div class="stats">
+
+
+            <div class="card rv">
+                <div class="num">2024</div>
+                <div class="mut">Started at Yucca IT Solutions</div>
+            </div>
+            <div class="card rv">
+                <div class="num" data-n="2">0</div>
+                <div class="mut">Flagship React projects</div>
+            </div>
+            <div class="card rv">
+                <div class="num" data-n="9">0</div>
+                <div class="mut">Projects in my experience</div>
+            </div>
+            <div class="card rv">
+                <div class="num" data-n="8.2" data-d="1">0</div>
+                <div class="mut">CGPA, BCA</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="sec-s rv">Toolkit</div>
+        <h2 class="sec-t rv">Skills</h2>
+        <div class="skills">
+            <div class="card rv">
+                <h3>Frontend</h3>
+                <div class="chips"><span class="chip">HTML5</span><span class="chip">CSS3</span><span
+                        class="chip">JavaScript</span><span class="chip">Bootstrap</span><span class="chip">Tailwind
+                        CSS</span><span class="chip">jQuery</span><span class="chip">jQuery Grid</span><span
+                        class="chip">Responsive Design</span></div>
+            </div>
+            <div class="card rv">
+                <h3>React</h3>
+                <div class="chips"><span class="chip">React</span><span class="chip">TypeScript</span><span
+                        class="chip">React Router</span><span class="chip">Hooks</span><span class="chip">Props &amp;
+                        State</span><span class="chip">Reusable Components</span></div>
+            </div>
+            <div class="card rv">
+                <h3>API &amp; Integration</h3>
+                <div class="chips"><span class="chip">REST APIs</span><span class="chip">JSON</span><span
+                        class="chip">Async/Await</span><span class="chip">Postman</span></div>
+            </div>
+            <div class="card rv">
+                <h3>Libraries &amp; Tools</h3>
+                <div class="chips"><span class="chip">Material UI</span><span class="chip">Swiper</span><span
+                        class="chip">TinyMCE</span><span class="chip">Git</span><span class="chip">VS Code</span></div>
+            </div>
+            <div class="card rv">
+                <h3>Also familiar with</h3>
+                <div class="chips"><span class="chip">React Native</span><span class="chip">Angular (basic)</span><span
+                        class="chip">SQL Server (basic)</span><span class="chip">Oracle (support)</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="exp">
+        <div class="sec-s rv">Journey</div>
+        <h2 class="sec-t rv">Experience &amp; Education</h2>
+        <div class="tl" id="tl">
+            <div class="card rv">
+                <div class="kind">Sep 2024 – Present · Bengaluru</div>
+                <h3>Front-End Developer · Yucca IT Solutions</h3>
+                <ul class="pts">
+                    <li>Develop and maintain responsive interfaces with HTML, CSS, JavaScript, Bootstrap, jQuery Grid
+                        and React.</li>
+                    <li>Build and modify screens from functional requirements, client Change Requests, Redmine tickets
+                        and UAT feedback.</li>
+                    <li>Resolve UI defects and cross-browser / cross-device issues.</li>
+                    <li>Collaborate with backend developers on API data handling and async UI flows, using Postman and
+                        browser dev tools.</li>
+                </ul>
+            </div>
+            <div class="card rv">
+                <div class="kind">Internship + Support</div>
+                <h3>L2 Application Support · Stellantis</h3>
+                <ul class="pts">
+                    <li>Supported applications including Forcom, MCQ, Medial Metrix and WRC.</li>
+                    <li>Monitored batch jobs, alerts and logs; supported incident and problem resolution.</li>
+                    <li>Performed reconciliation in WRC and prepared reports for users.</li>
+                </ul>
+            </div>
+            <div class="card rv">
+                <div class="kind">Education</div>
+                <h3>BCA · Bhandarkar’s Arts and Science College, Kundapura</h3>
+                <p class="mut">8.2 CGPA</p>
+                <div class="chips"><span class="chip">Responsive Web Design – freeCodeCamp</span><span class="chip">CSS,
+                        Bootstrap &amp; JS – Udemy</span><span class="chip">SQL Programming – Great Learning</span><span
+                        class="chip">Python · Google Data Analytics · C</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="work">
+        <div class="sec-s rv">Professional work</div>
+        <h2 class="sec-t rv">Office Projects</h2>
+        <p class="mut rv">Projects delivered as a Front-End Developer at Yucca IT Solutions.</p>
+        <div class="pg">
+
+            <div class="card pro rv">
+                <div class="ph">
+                    <div>
+                        <div class="kind">React project</div>
+                        <h3>Integra</h3>
+                    </div><span class="client">Client: Nestle</span>
+                </div>
+                <p class="mut" style="margin-top:10px">A centralized application dashboard and access-management
+                    platform. Administrators create and manage applications and control which users can access them;
+                    users then see only the applications available to them and navigate to the right one.</p>
+                <div class="sub">What I worked on</div>
+                <ul class="pts">
+                    <li>Built reusable React components for dashboards, navigation, forms, dialogs and
+                        application-management screens.</li>
+                    <li>Used React Router for navigation between screens without full page reloads.</li>
+                    <li>Managed local UI state with hooks for filters, modal visibility and interaction states.</li>
+                    <li>Passed data with props and used callbacks for child-to-parent actions; made components
+                        configurable for different labels, data and states.</li>
+                    <li>Supported frontend integration with backend services and application data flows.</li>
+                </ul>
+                <div class="flow">Admin → Create / Manage App → Assign Access → User Login → View Authorized Apps → Open
+                    App</div>
+                <div class="chips"><span class="chip">React</span><span class="chip">TypeScript</span><span
+                        class="chip">React Router</span><span class="chip">Material UI</span></div>
+            </div>
+
+            <div class="card pro rv">
+                <div class="ph">
+                    <div>
+                        <div class="kind">React project</div>
+                        <h3>Volvo Scrap Management</h3>
+                    </div><span class="client">Yucca IT Solutions</span>
+                </div>
+                <p class="mut" style="margin-top:10px">A React and TypeScript application for managing and tracking
+                    scrap-related operations across Assembly, Inbound, Outbound and Administration modules.</p>
+                <div class="sub">What I worked on</div>
+                <ul class="pts">
+                    <li>Built reusable components: navigation, sidebar, filters, statistics, scrap cards, buttons,
+                        dialogs and loading skeletons.</li>
+                    <li>Implemented filtering (selected filter held in state) and pagination (data sliced by current
+                        page and items per page).</li>
+                    <li>Handled modal interactions, loading states, conditional rendering and dynamic list rendering.
+                    </li>
+                    <li>Used useState and useEffect for UI state and side effects such as listener setup and cleanup.
+                    </li>
+                    <li>Worked with dynamic data handling and responsive layouts using Material UI.</li>
+                </ul>
+                <div class="flow">Login → Dashboard → Module → View Data → Filter / Paginate → Action → Updated UI</div>
+                <div class="chips"><span class="chip">React</span><span class="chip">TypeScript</span><span
+                        class="chip">Vite</span><span class="chip">React Router</span><span class="chip">Material
+                        UI</span></div>
+            </div>
+
+            <div class="card pro rv">
+                <div class="ph">
+                    <div>
+                        <div class="kind">UI development</div>
+                        <h3>IMT – Invoice Management Tool</h3>
+                    </div><span class="client">Client: Nestle</span>
+                </div>
+                <p class="mut" style="margin-top:10px">An invoice management system that processes invoices through a
+                    workflow. I worked on the UI of the LRC (Invoice Lifecycle Management) application within it.</p>
+                <div class="sub">What I worked on</div>
+                <ul class="pts">
+                    <li>Developed and modified screens, grids and responsive layouts.</li>
+                    <li>Delivered client-requested changes and UI work for invoice processing, validation, approval
+                        workflow and validation-summary screens.</li>
+                    <li>Worked with backend teams on integration-related UI changes.</li>
+                    <li>Scope note: automated data extraction and rule-based validation belong to the wider solution; my
+                        work was the front-end/UI side.</li>
+                </ul>
+                <div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span
+                        class="chip">JavaScript</span><span class="chip">Bootstrap</span><span class="chip">jQuery
+                        Grid</span></div>
+            </div>
+
+            <div class="card pro rv">
+                <div class="ph">
+                    <div>
+                        <div class="kind">React project</div>
+                        <h3>NACA – Nestle Anti-Counterfeit Application</h3>
+                    </div><span class="client">Client: Nestle</span>
+                </div>
+                <p class="mut" style="margin-top:10px">An application focused on product authenticity and
+                    anti-counterfeit processes.</p>
+                <div class="sub">What I worked on</div>
+                <ul class="pts">
+                    <li>Contributed to the React front-end, building and maintaining user-facing interfaces.</li>
+                    <li>Worked on responsive UI requirements.</li>
+                    <li>Scope note: my focus was the UI, not the underlying authentication or anti-counterfeit
+                        technology.</li>
+                </ul>
+                <div class="chips"><span class="chip">React</span><span class="chip">Responsive UI</span></div>
+            </div>
+
+            <div class="card pro rv">
+                <div class="ph">
+                    <div>
+                        <div class="kind">Angular · Template work</div>
+                        <h3>DSD – Demand Supply Distribution</h3>
+                    </div><span class="client">Client:froneri</span>
+                </div>
+                <p class="mut" style="margin-top:10px">A demand and supply distribution project for froneri Ice Cream.
+                </p>
+                <div class="sub">What I worked on</div>
+                <ul class="pts">
+                    <li>Short-term hands-on exposure to Angular for UI activities and responsive UI implementation
+                        (basic level).</li>
+                    <li>Created reusable HTML/CSS templates integrated with a React Native HTML-to-PDF library for
+                        automated PDF generation.</li>
+                </ul>
+                <div class="chips"><span class="chip">Angular (basic)</span><span class="chip">HTML</span><span
+                        class="chip">CSS</span><span class="chip">React Native</span></div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="personal">
+        <div class="sec-s rv">On my own time</div>
+        <h2 class="sec-t rv">Personal Projects</h2>
+        <div class="pg">
+            <div class="card feat pro rv">
+                <div class="ph">
+                    <div>
+                        <div class="kind">Personal project · Live website</div>
+                        <h3>Bite – Food Ordering Website</h3>
+                    </div><span class="client">Live on GitHub Pages</span>
+                </div>
+                <p class="mut" style="margin-top:10px">A food-ordering website where users can pick a dish, add it to
+                    the cart and check out in a few clicks, with no sign-up needed to browse. I designed and hosted it
+                    myself as a hands-on front-end project.</p>
+                <div class="sub">Features</div>
+                <ul class="pts">
+                    <li>Search for dishes and browse by category.</li>
+                    <li>Featured dishes on the home page and a full menu page.</li>
+                    <li>Veg / non-veg filter and a detail view for each dish.</li>
+                    <li>Cart with quantity control and coupon support.</li>
+                    <li>Checkout with delivery address, payment choice and order tracking.</li>
+                    <li>Clear three-step flow (pick a dish, add to cart, check out) and a customer-reviews section.</li>
+                </ul>
+                <div class="flow">Browse → Pick a dish → Add to cart → Apply coupon → Checkout → Track order</div>
+                <div class="btns" style="margin-top:18px"><a class="btn p"
+                        href="https://shravyakshetty02.github.io/bite-food-ordering" target="_blank"
+                        rel="noopener">Visit live site ↗</a></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="sec-s rv">Contact</div>
+        <h2 class="rv">Let’s build something <span class="grad">great</span></h2>
+        <div class="links rv"><a class="btn p" href="mailto:shravyakshetty02@gmail.com">shravyakshetty02@gmail.com</a><a
+                class="btn" href="https://www.linkedin.com/in/shravyakshetty02" target="_blank"
+                rel="noopener">LinkedIn</a></div>
+    </section>
+    <footer>© 2026 Shravya Shetty · Bengaluru, India</footer>
+
+    <script>
+        const words = ['responsive interfaces', 'React & TypeScript apps', 'reusable components', 'pixel-perfect screens'];
+        let w = 0, c = 0, del = false; const tw = document.getElementById('tw');
+        (function t() {
+            const s = words[w]; c += del ? -1 : 1; tw.textContent = s.slice(0, c);
+            let d = del ? 35 : 70; if (!del && c === s.length) { del = true; d = 1400 } else if (del && c === 0) { del = false; w = (w + 1) % words.length; d = 300 } setTimeout(t, d)
+        })();
+        const g = document.getElementById('glow');
+        addEventListener('pointermove', e => { g.style.left = e.clientX + 'px'; g.style.top = e.clientY + 'px' });
+        const io = new IntersectionObserver(es => es.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('on');
+                const n = e.target.querySelector('[data-n]'); if (n && !n.done) {
+                    n.done = 1; const T = +n.dataset.n, D = +n.dataset.d || 0; let s = null;
+                    const f = ts => { s = s || ts; const p = Math.min((ts - s) / 1200, 1); n.textContent = (T * p).toFixed(D); if (p < 1) requestAnimationFrame(f) }; requestAnimationFrame(f)
+                }
+                io.unobserve(e.target)
+            }
+        }), { threshold: .15 });
+        document.querySelectorAll('.rv').forEach((el, i) => { el.style.transitionDelay = (i % 4) * 80 + 'ms'; io.observe(el) });
+        const tl = document.getElementById('tl');
+        function pr() { const r = tl.getBoundingClientRect(); tl.style.setProperty('--p', Math.max(0, Math.min(100, (innerHeight * .6 - r.top) / r.height * 100)) + '%') }
+        addEventListener('scroll', pr, { passive: true }); pr();
+    </script>
+</body>
+
+</html>
